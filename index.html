@@ -1,0 +1,606 @@
+<!doctype html>
+<html><head><title>App Cloud Handson</title><meta charset="UTF-8"><link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic|Roboto:400,700,700italic,400italic"><style>/*
+ * Copyright 2014 Quip
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+body {
+    font-size: 15px;
+    color: #333;
+    background: #fff;
+    padding: 60px 95px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern";
+    font-kerning: normal;
+    -moz-font-feature-settings: "kern";
+    -webkit-font-feature-settings: "kern";
+}
+
+/* Headings */
+h1, h2, h3, th {
+    font-family: Roboto, sans-serif;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 1.25em;
+    margin-bottom: 0.75em;
+}
+
+h1 {
+    font-size: 35px;
+    line-height: 42px;
+}
+
+h1:first-child {
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 18px;
+    line-height: 22px;
+}
+
+h3 {
+    text-transform: uppercase;
+    font-size: 13px;
+    line-height: 16px;
+}
+
+/* Body text */
+body, p, ul, ol, td {
+    font-family: 'Crimson Text', serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+blockquote, q {
+    display: block;
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote a, q a {
+    text-decoration: underline;
+}
+
+blockquote {
+    padding-left: 10px;
+    border-left: 4px solid #a6a6a6;
+}
+
+q {
+    color: #a6a6a6;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: center;
+    quotes: none;
+}
+
+q a {
+    color: #a6a6a6;
+}
+
+code, pre {
+    font-family: Consolas, "Liberation Mono", Menlo, "Courier Prime Web", Courier, monospace;
+    background: #f3f3f3;
+}
+
+code {
+    padding: 1px;
+    margin: 0 -1px;
+    border-radius: 3px;
+}
+
+pre {
+    display: block;
+    line-height: 20px;
+    text-shadow: 0 1px white;
+    padding: 5px 5px 5px 30px;
+    white-space: nowrap;
+    position: relative;
+    margin: 1em 0;
+}
+
+pre:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    border-left: solid 1px #dadada;
+}
+
+/* Lists */
+div[data-section-style="5"],
+div[data-section-style="6"],
+div[data-section-style="7"] {
+    margin: 12px 0;
+}
+
+ul {
+    padding: 0 0 0 40px;
+}
+
+ul li {
+    margin-bottom: 0.4em;
+}
+
+/* Bulleted list */
+div[data-section-style="5"] ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul {
+    list-style-type: square;
+}
+div[data-section-style="5"] ul ul ul ul {
+    list-style-type: disc;
+}
+div[data-section-style="5"] ul ul ul ul ul {
+    list-style-type: circle;
+}
+div[data-section-style="5"] ul ul ul ul ul ul {
+    list-style-type: square;
+}
+
+/* Numbered list */
+div[data-section-style="6"] ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul {
+    list-style-type: lower-roman;
+}
+div[data-section-style="6"] ul ul ul ul {
+    list-style-type: decimal;
+}
+div[data-section-style="6"] ul ul ul ul ul {
+    list-style-type: lower-alpha;
+}
+div[data-section-style="6"] ul ul ul ul ul ul {
+    list-style-type: lower-roman;
+}
+
+/* Checklist */
+div[data-section-style="7"] ul {
+    list-style-type: none;
+}
+
+div[data-section-style="7"] ul li:before {
+    content: "\2610";
+    position: absolute;
+    display: inline;
+    margin-right: 1.2em;
+    margin-left: -1.2em;
+}
+
+div[data-section-style="7"] ul li.parent:before {
+    content: "";
+}
+
+div[data-section-style="7"] ul li.parent {
+    font-weight: bold;
+}
+
+div[data-section-style="7"] ul li.checked {
+    text-decoration: line-through;
+}
+
+div[data-section-style="7"] ul li.checked:before {
+    content: "\2611";
+    text-decoration: none;
+}
+
+/* Tables */
+div[data-section-style="8"] {
+    margin: 12px 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border: solid 1px #7c7c7c;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+    table-layout: fixed;
+    position: relative;
+}
+
+table th, table td {
+    padding: 2px 2px 0;
+    min-width: 1.5em;
+    word-wrap: break-word;
+}
+
+table th {
+    border-bottom: 1px solid #ccc;
+    background: #f0f0f0;
+    font-weight: bold;
+    vertical-align: bottom;
+    color: #3a4449;
+    text-align: center;
+}
+
+table td {
+    padding-top: 0;
+    border-left: 1px solid #e1e1e1;
+    border-top: 1px solid #e1e1e1;
+    vertical-align: top;
+}
+
+table td.bold {
+    font-weight: bold;
+}
+
+table td.italic {
+    font-style: italic;
+}
+
+table td.underline {
+    text-decoration: underline;
+}
+
+table td.strikethrough {
+    text-decoration: line-through;
+}
+
+table td.underline.strikethrough {
+    text-decoration: underline line-through;
+}
+
+table td:first-child {
+    border-left: hidden;
+}
+
+table tr:first-child td {
+    border-top: hidden;
+}
+
+/* Images */
+div[data-section-style="11"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div[data-section-style="11"][data-section-float="0"] {
+    clear: both;
+    text-align: center;
+}
+
+div[data-section-style="11"][data-section-float="1"] {
+    float: left;
+    clear: left;
+    margin-right: 20px;
+}
+
+div[data-section-style="11"][data-section-float="2"] {
+    float: right;
+    clear: right;
+    margin-left: 20px;
+}
+
+div[data-section-style="11"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+hr {
+    width: 70px;
+    margin: 20px auto;
+}
+</style></head><body><h1 id='SQGACA4Jcdj'>App Cloud Handson</h1>
+
+<h2 id='SQGACAiRZ1R'>Building a small Business App in Salesforce</h2>
+
+To get an introduction inot the possibilities of the salesforce Platform for building custom functionality we'll go through building a simple app to manage a lemonade stand business. No code required.<br/>
+
+The project is taken from our inetractive learning environment called <a href="https://trailhead.salesforce.com">Trailhead</a>, https://trailhead.salesforce.com.<br/>
+
+<h3 id='SQGACAUu1EU'>Getting ready</h3>
+
+We will be doing all our work in the browser and for compatibility using <b>Firefox or Chrome is mandatory</b>.<br/>
+
+Before starting with the project be sure to <a href="https://trailhead.salesforce.com/#signin_modal">Login</a> (<a href="https://trailhead.salesforce.com/#signin_modalto">https://trailhead.salesforce.com/#signin_modalto</a>) Trailhead or<a href="https://trailhead.salesforce.com/#signup_modal"> Sign Up</a> (<a href="https://trailhead.salesforce.com/#signup_modal">https://trailhead.salesforce.com/#signup_modal</a>) if you don't already  have an account.<br/>
+
+<div data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/bu8gAePOEZIlvIaSDIshZA?a=Qdx6S4MYbNqMHT7zYP9wSKTI36iH2q33aZNYmkMNaLAa' id='SQGACA6wxUV' alt='' width='800' height='300'></img></div><div data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/yTAamwd1gwR4VJwus7QqlQ?a=EiBLtAATrwa9Sa5unq5HHlunGFaaI7YU0KfGdVftmaoa' id='SQGACAkzDFE' alt='' width='800' height='440'></img></div>The first step of our project to <a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop">build a Lemonade Stand App</a> (<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshopis">https://trailhead.salesforce.com/project/lemonade-stand-workshopis</a>) get familiar with your Trailhead Playground.<br/>
+
+<div data-section-style='7'><ul id='SQGACAe4CJY'><li id='SQGACA4VWzA' class='' value='1'>On <a href="https://trailhead.salesforce.com">Trailhead</a> (<a href="https://trailhead.salesforce.com/find">https://trailhead.salesforce.com/find</a>) 'Build a Lemonade Stand App' by searching for 'Lemonade' at the top of the page. Click on the link '<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop/make-a-business-plan">Make a Business Plan</a>' (<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop/make-a-business-planto">https://trailhead.salesforce.com/project/lemonade-stand-workshop/make-a-business-planto</a>) go to the first step of the project.
+
+<br/></li><li id='SQGACAZQ8Fb' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/sBrsZbB0tclYvcxrHwk2eA?a=HaKzapjXrGI83jX44nCD8e3R7H37ayHzCw8aZH4bOHYa' id='SQGACAZQ8Fb' alt='' width='800' height='260'></img></span></li><li id='SQGACA7McEn' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/MB51jX-ABOtN4a3TSK4Jfw?a=icqayW3CxlWY2DJeFWfGIOUiZzpboFakYhttBy0vEZAa' id='SQGACA7McEn' alt='' width='800' height='248'></img></span></li><li id='SQGACAMxT1U' class=''><b>Don't follow Trailhead!</b> We won't be using a Developer Edition but use a 'Trailhead Playground'
+
+<br/></li><li id='SQGACAjWehk' class=''>Scroll all the way down to the bottom of the page and click the drop-down arrow next to 'Verify Step'. If this is not visible you need to login to Trailhead.
+
+<br/></li><li id='SQGACAZT07m' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/4zz5cAX7YrTvzkmZeK_Osg?a=aQEe7anr6IGjC1KQyd6ltaVhif3CAaNjCTfgkUiVFoga' id='SQGACAZT07m' alt='' width='800' height='454'></img></span></li><li id='SQGACA97CKp' class=''>Make sure 'My Trailhead Playground' is selected, this is the default playground environment already available for you. You can off course add an existing <a href="https://developer.salesforce.com/signup">Developer environment</a> (<a href="https://developer.salesforce.com/signupbut">https://developer.salesforce.com/signupbut</a>) also request other - clean - playgrounds. Click 'Launch your hands-on org'.
+
+<br/></li><li id='SQGACAquMCQ' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/p6L7RcOVDuRdANkTCGMyOA?a=YkOl4eOxOaqaxBzpI4zTsW5EGiYY1Pa2iRT80GQ5rk0a' id='SQGACAquMCQ' alt='' width='800' height='473'></img></span></li><li id='SQGACAQfSVq' class=''>There's no need to set your password, from Trailhead you will be logged in directly to your Org. <b>Be aware Language is set based on the country chosen during signup.</b>
+
+<br/></li><li id='SQGACAqNlPG' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/5NqSil2joxkDlONh16KdTg?a=LybOVKtNYEFMEpkIAO6xSTtaE8Sacjtl08jkKJvljmAa' id='SQGACAqNlPG' alt='' width='800' height='137'></img></span></li><li id='SQGACAu3DRn' class=''>Since these exercises are written for English feel free to change locale to English if you prefer. Use the drop down box under your name and choose <b>My Settings</b>, under <b>Personal - Language and Time Zone</b> you can change the language to English, <b>Save </b>(off course it's shown in a different language). Ignore any message on critical updates.
+
+<br/></li><li id='SQGACAq95qs' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/BDvnKvoS4rXsVkrive-k3w?a=Y8UgsthYaagWI3j1AoTife24kL0UB6lrepr9mxMcVQMa' id='SQGACAq95qs' alt='' width='800' height='101'></img></span></li><li id='SQGACAKO0bs' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/UHhK693psRGh6sNw-WE21g?a=1DPwYhoZw5ZhbfKXsfTmKu1VzBfGWopuHtmoG7c35Zga' id='SQGACAKO0bs' alt='' width='800' height='273'></img></span></li><li id='SQGACAINSDX' class=''>Now we'll switch to the Lightning interface to enable the '<a href="https://trailhead.salesforce.com/modules/lex_migration_introduction">Lightning Experience</a>' (<a href="https://trailhead.salesforce.com/modules/lex_migration_introduction">https://trailhead.salesforce.com/modules/lex_migration_introduction</a>). In the top right corner click Setup, and then from the setup tree in the top left corner click Lightning Experience.
+
+<br/></li><li id='SQGACAQmJkJ' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/XaXMebJ-f4DISJL_1IFMGA?a=2nIhfddhUZEj27Anvia4K3fRUBshRdLYnljsQaaxwGQa' id='SQGACAQmJkJ' alt='' width='800' height='423'></img></span></li><li id='SQGACAyCR05' class=''>Scroll to the bottom of the page, and next to Lightning Experience click the slider button. The slider button should update to Enabled.Click 'Finish Enabling Lightning Experience' in the dialog.
+
+<br/></li><li id='SQGACAs1uAv' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/n7ZEw0yAXNrMMeW20SAKGw?a=IQncnCU3cUYUMphYdZm7dvMcDz2oDOz1PhDDnnHJ2SQa' id='SQGACAs1uAv' alt='' width='800' height='350'></img></span></li><li id='SQGACAyy0uu' class=''>Click your name in the top right corner. You should now see Switch to Lightning Experience in the menu. This feature is called the <i>Switcher</i>. It lets each user switch back and forth between Lightning Experience and the previous user experience, Salesforce Classic, on demand.
+
+<br/></li><li id='SQGACARogLx' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/Am1vUZmF0DdLZEcX2wowww?a=Ry2X6Y4sMbbtviJlNaZtun128YKpadgRhu1PWGZj74Aa' id='SQGACARogLx' alt='' width='800' height='131'></img></span></li><li id='SQGACAzx21F' class=''>Click 'Switch to Lightning Experience' since this handson is written to be executed in Lightning.
+
+<br/></li><li id='SQGACAVRZXB' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/N7Xe_u6Bvrw8orv_odv_BQ?a=TRttc03ia7D2VNVaudFFy13DGfx4EMfDnbjEJC38EaIa' id='SQGACAVRZXB' alt='' width='800' height='478'></img></span></li></ul></div><h3 id='SQGACACFwfw'>Your first project</h3>
+
+Now we can start our first Trailhead project <a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop">Build a Lemonade Stand App</a> (<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshopand">https://trailhead.salesforce.com/project/lemonade-stand-workshopand</a>) quickly get an understanding of the meaning of 'No Code'.<br/>
+
+<div data-section-style='7'><ul id='SQGACAciuj0'><li id='SQGACAhoC96' class='' value='1'>Got to <a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop">https://trailhead.salesforce.com/project/lemonade-stand-workshop</a> (<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshopon">https://trailhead.salesforce.com/project/lemonade-stand-workshopon</a>) a new tab in your browser and login to Trailhead if necessary. Or just go back to the already open tab if you come from the previous part.
+
+<br/></li><li id='SQGACAw9XW6' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/Z7Bh0J5KkSQ_5XvMb9p9SA?a=dCNo4jnrWdqeVtqVEaeOzZj7Pvm0rbCpiEJ8z29mCpMa' id='SQGACAw9XW6' alt='' width='800' height='281'></img></span></li><li id='SQGACANNiO5' class=''>Click on the first step 'Make a Business Plan'
+
+<br/></li><li id='SQGACAVRbxH' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/PdNSSQKgE3j646PK4LRb_A?a=PSdw2Mb2BoX8zdwl6aeMTNVJzXZohjJAPUWdsHIjd9Ma' id='SQGACAVRbxH' alt='' width='721' height='401'></img></span></li><li id='SQGACAJl7oe' class=''>You can read through the first paragraphs but we already completed the Step. You should have switched to Lightning, <b>don't switch back although mentioned in the step if you're following this guide.</b>
+
+<br/></li><li id='SQGACAnVFzG' class=''>You should now be able to verify the Step so click 'Verify Step' at the bottom of the page.
+
+<br/></li><li id='SQGACA3gReC' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/FUmQG560kIcnxhgzwz1_bQ?a=xe6jFfWsQqaf3ya69Bsq5akTJUuRYZl9iB9t5cwOMHEa' id='SQGACA3gReC' alt='' width='800' height='309'></img></span></li><li id='SQGACAVhGo4' class=''>Did Astro give you 50 points? Click 'Tackle the next step'.
+
+<br/></li><li id='SQGACAGqjSX' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/fF7MtUqEdeWowrjORrW5Ng?a=lhd2WaLa5nZYOOUdYuMzyf23s2Michix3LndQ02zGuYa' id='SQGACAGqjSX' alt='' width='599' height='532'></img></span></li></ul></div><h3 id='SQGACAf9qrL'>Configuring our Application</h3>
+
+Now we should be at the next step 'Create the Object Model'!<br/>
+
+<br/>
+
+Salesforce has 3 releases each year and in the current releases we're building out our Lightning Experience. For this lab it means you can just follow Trailhead to work in the Classic interface but this guide is written for the Lightning interface. So<b> </b>for the Lightning Experience, <b> instead of following the paragraph 'Create an App and a Custom Object' from Trailhead follow the below steps.</b><br/>
+
+<div data-section-style='7'><ul id='SQGACAe3vOV'><li id='SQGACAiXrqN' class='' value='1'>In the top right corner, click <b>Setup Home</b>
+
+<br/></li><li id='SQGACAoX0oB' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/ap026TLce0rs3OpNN0fZKw?a=NRza5PRHB26xBtZY1qfpWgkzPJtw8OikxMeYLjQJ8hMa' id='SQGACAoX0oB' alt='' width='800' height='181'></img></span></li><li id='SQGACAlZq3D' class=''>Choose <b>Custom Object</b> under Create which opens the 'Object Manager' under the section 'Objects and Fields'
+
+<br/></li><li id='SQGACANhOss' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/8bJ04sNFmRemkvaFaX8Mpw?a=rTfL1zzTy86XoN6GhEarGkGQxiUR59m1gASp6Dydphka' id='SQGACANhOss' alt='' width='800' height='297'></img></span></li><li id='SQGACAWqurl' class='parent'>Fill in the form with 
+
+<br/></li><ul><li id='SQGACA7M3YX' class=''>Label: Flavor
+
+<br/></li><li id='SQGACAF3yEi' class=''>Plural Label: Flavors
+
+<br/></li><li id='SQGACALarqf' class=''>Accept defaults for other fields
+
+<br/></li><li id='SQGACApNaCB' class=''>Check Allow Reports, Allow Activities and Track Field History
+
+<br/></li><li id='SQGACA1nt4l' class=''>All the way at the bottom check 'Launch New Custom Tab Wizard after saving this custom object'
+
+<br/></li><li id='SQGACAsT2B8' class=''><span data-section-style='11' class='tall' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/qwuLoo74CTW6tv0UEgdOOA?a=R7Io9u2AT0aCxDEMjdazSua2aFaAfJHTRYODhsRU2jca' id='SQGACAsT2B8' alt='' width='765' height='835'></img></span></li><li id='SQGACAYjdlg' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/SaRKZKSUdTBWnkEGqkfKFg?a=kb61a5h6oVPQCyJtxio8Rn3MdLCa5EwptSEU8EWHaC4a' id='SQGACAYjdlg' alt='' width='767' height='145'></img></span></li></ul><li id='SQGACAVt9zT' class=''>Click <b>Save </b>after which you get the option to<b> </b>select a Tab Style
+
+<br/></li><li id='SQGACAQHHec' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/NJW2y53X0PQuTflJdLtc_w?a=TQh5sH5DwXuHcLnU1zHH1pQU9opsluXFdqCz18ZUaawa' id='SQGACAQHHec' alt='' width='708' height='237'></img></span></li><li id='SQGACANIuKD' class=''>Choose any tab style by clicking on the icon and click <b>Next</b> and <b>Next</b>
+
+<br/></li><li id='SQGACAXKWga' class=''>Uncheck Include Tab and scroll down to only select 'App Launcher'
+
+<br/></li><li id='SQGACANJl7q' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/n7uwNUpirK026aMuAd4AWg?a=DEtOFv7Yb1nZaP8srbnW4A3YTcWQxZarQQfAfDDNrgMa' id='SQGACANJl7q' alt='' width='765' height='709'></img></span></li><li id='SQGACA54aaZ' class=''>Click <b>Save</b>
+
+<br/></li><li id='SQGACAMPYC0' class=''>In Setup Home use the Quick Find box (top left) to search for 'App Manager'
+
+<br/></li><li id='SQGACAWdRpc' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/uVW4Y6RWSpGCEO-Sto2F7Q?a=vBwWN6bv0Xarxwiv7TtMaccgJjd2yNoJD5BahWOtlYga' id='SQGACAWdRpc' alt='' width='794' height='270'></img></span></li><li id='SQGACAg6JHR' class=''>Click <b>App Manager</b> and click <b>New Lightning App</b>
+
+<br/></li><li id='SQGACAU5Kel' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/QRYT_HdC3ubpI5-PvcHS1g?a=AaPQD4m5nsdbuZ16mqqPKxhNI4amqawErzjMMK4OrUYa' id='SQGACAU5Kel' alt='' width='800' height='227'></img></span></li><li id='SQGACAIQLVx' class=''>Use <b>Lemonade Stand</b> as your App Name (relevant to follow the naming for the Trailhead verify). Pick a color, optionally add an image and click <b>Next</b>
+
+<br/></li><li id='SQGACAhVhwj' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/aJHycN_POj-MKOG9r77czQ?a=mvd48ArCvRPsQdMKgt6Qfiw3K8r5kC7t3cCDrNBa4JIa' id='SQGACAhVhwj' alt='' width='800' height='540'></img></span></li><li id='SQGACAZRRPz' class=''>On the 'APP OPTIONS' tab click <b>Next</b> and on 'SELECT ITEMS' search Flavors and move it to the left. Click <b>Next</b>
+
+<br/></li><li id='SQGACAIPoOm' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/6QmuTNipUZAE_VuJ2ZeT1g?a=zL8dGmdkEJf3Pg55NwzRaYLjWyi11ylpLrdCEN9tYN8a' id='SQGACAIPoOm' alt='' width='800' height='476'></img></span></li><li id='SQGACALCqJU' class=''>Assign the 'System Administrator' and 'Standard User' profile to make sure you provide access to the Flavors Tab. Click <b>Save &amp; Finish</b>
+
+<br/></li><li id='SQGACA08XJO' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/8Yz3q4-LgZ72k7SYwMqjFA?a=Bhyaw42DZMLoYMAiVVojN34awrHXjvv3uGFHvvULwGka' id='SQGACA08XJO' alt='' width='800' height='484'></img></span></li><li id='SQGACAfVRNZ' class=''>Now open the App Launcher on the top left under the Salesforce logo and select the Lemonade Stand
+
+<br/></li><li id='SQGACAsixpa' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/4E-VShbJ7-PULEd8qRyBaQ?a=uEd6WLJJTuM4M8IRkCOKD7NG5yONYBVr36vBe4gDwKca' id='SQGACAsixpa' alt='' width='800' height='459'></img></span></li><li id='SQGACAUlqML' class=''>Your basic App is created! Use the drop down box next to Flavors to add a <b>New Flavor</b> and see the user interface automatically created for your object
+
+<br/></li><li id='SQGACAHEhT1' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/vEKnVDu4CiOZfn6cMIyMwQ?a=DJXCv1gnXtPLbC4YolgA48Ir8KDme2xVYeiGRHaxYswa' id='SQGACAHEhT1' alt='' width='800' height='77'></img></span></li><li id='SQGACABcjb3' class=''>Now go back to the Trailhead project and follow the paragraph '<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-the-object-model#make-additional-objects">Make Additional Objects</a>' (<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-the-object-model#make-additional-objects">https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-the-object-model#make-additional-objects</a>). Start creating an object again from Setup Home - Create - Custom Object or use the Quick Find box to search for 'Object Manager'. Be aware that if you pick 'Save &amp; New' to save your custom object your browser might block a pop-up, so either click 'Save' and start from Setup Home - Create - Custom Object or enable pop-ups for your Trailhead Org.
+
+<br/></li><li id='SQGACAVNF8P' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/IqHBZG5rFOCIQhtpVPm5yw?a=EfTS87XEr2QGIuELzcpuB0WDNmLIacfFKt3OwH8DOxEa' id='SQGACAVNF8P' alt='' width='735' height='161'></img></span></li><li id='SQGACAcxmW8' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/nKai2eIS-WbDLr49uFFBWQ?a=UNmbQY15l52ZMaJ89gY7SvThRL1uDEdmxHtmSnxE8owa' id='SQGACAcxmW8' alt='' width='800' height='207'></img></span></li><li id='SQGACAOW7e9' class=''>If you created all the Object from the previous paragraph '<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-the-object-model#make-additional-objects">Make Additional Objects</a>' (<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-the-object-model#make-additional-objectsfollow">https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-the-object-model#make-additional-objectsfollow</a>) the steps for the next paragraph '<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-the-object-model#make-custom-tabs-and-update-the-app">Make Custom Tabs and Update the App</a>' (<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-the-object-model#make-custom-tabs-and-update-the-appin">https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-the-object-model#make-custom-tabs-and-update-the-appin</a>) Trailhead. You can find 'Tabs' through Quick Find or select 'Custom Tab' from the Setup Home - Create drop-down. Just create tabs for 'Drink Order' and 'Fulfillment Queue'
+
+<br/></li><li id='SQGACAPxCgr' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/1avb3iRJGamaFm0fxbEonA?a=17xgomcAfGwZD9kzk783OEvGpmxO7FSp5GiQIaeGWIMa' id='SQGACAPxCgr' alt='' width='800' height='213'></img></span></li><li id='SQGACATqN6i' class=''>Once you've created the Tabs for your custom objects 'Drink Order' and 'Fulfillment Queue' search again for the App Manager to find your Lemonade Stand App. use the drop down box at the end to select <b>Edit</b>
+
+<br/></li><li id='SQGACApYCdu' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/KVNyOgzxyHNAzXBukQx3BQ?a=HqyamiZBuHGnKgWh3CSZ9WsxmPwkd69CqTgeqcFYEt8a' id='SQGACApYCdu' alt='' width='800' height='375'></img></span></li><li id='SQGACAhIjfQ' class=''>Click <b>SELECT ITEMS</b> to add the existing object Contacts to your Lemonade Stand App. Also add Chatter, Reports and Dashboards. Click <b>Save </b>and<b> Done</b>
+
+<br/></li><li id='SQGACAdOzvu' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/CgI1iG3OJi1LLIwrJm3WXg?a=asT8jixt7amUzqaEp50ZzgFfa49lRSI8tmI9b4S8Zq8a' id='SQGACAdOzvu' alt='' width='800' height='422'></img></span></li><li id='SQGACAAQR1A' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/v1cO-HPdiqoWnpkRbIDJ9w?a=jDWCJFcpGI2TM5FazMtYWWOGom59W8iCFjypeZK8VeIa' id='SQGACAAQR1A' alt='' width='800' height='489'></img></span></li><li id='SQGACATk7gz' class=''>Now reopen your Lemonade Stand App from the 'App Launcher'
+
+<br/></li><li id='SQGACAJngFq' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/IEPJdgCbPR3cppgJbsZ9oA?a=t5WtuajEqR91XInlhOvNx4WfnlaunxamEExdhVeehBYa' id='SQGACAJngFq' alt='' width='800' height='181'></img></span></li><li id='SQGACArxLr8' class=''>Complete the Trailhead step '<b><a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-the-object-model#try-it-out">Try It Out</a>' (<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-the-object-model#try-it-out">https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-the-object-model#try-it-out</a>) </b>and when done click<b> Verify Step</b>
+
+<br/></li></ul></div><h3 id='SQGACAY1PcN'>Completing the project</h3>
+
+Impressed by how quickly you can configure an Application on the App Cloud? You'll be even more impressed to know your content is also available on the Salesforce1 mobile app (don't get confused). At the end of the project feel free to download (if necessary) Salesforce1 from the store relevant for your device and open Salesforce1 (use <a href="https://force.desk.com/customer/portal/articles/2659738-how-to-get-a-password-for-my-trailhead-playground?b_id=13478">this article</a> (<a href="https://force.desk.com/customer/portal/articles/2659738-how-to-get-a-password-for-my-trailhead-playground?b_id=13478">https://force.desk.com/customer/portal/articles/2659738-how-to-get-a-password-for-my-trailhead-playground?b_id=13478</a>) to find your Trailhead Playground credentials). <br/>
+
+<div data-section-style='7'><ul id='SQGACAA7a5C'><li id='SQGACAMnWwN' class='' value='1'>Now follow and complete the project on Trailhead. If you can't find what's needed in Setup, try to use the <b>Quick Find </b>and view the tips below before completing the project.
+
+<br/></li><li id='SQGACA9QTZ9' class=''>You can find the 'Object Manager' details for an Object through the Edit Object option on the <b>SETUP</b> drop down (be sure to open an object first)
+
+<br/></li><li id='SQGACAUck6h' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/8puv2bI_xub2z5M3_1-LnQ?a=2VcaVTY1hqXQqcqjEVZNKP4b71TvDOxxEhpZOZWaZKoa' id='SQGACAUck6h' alt='' width='800' height='311'></img></span></li><li id='SQGACA3XJnG' class=''>If you're on an object details page in the 'Object Manager' use the breadcrumb to go back to the main screen by clicking <b>OBJECT MANAGER</b>. You now get an overview of all objects in Salesforce
+
+<br/></li><li id='SQGACARhgS1' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/WGsVpNkfuLCTcaggNPJlrw?a=5Jl49Q4UkMTYDQmwk2vqJrgRqOWLBNocsTaz1X5xdY4a' id='SQGACARhgS1' alt='' width='800' height='200'></img></span></li><li id='SQGACAjaRFW' class=''>Use 'Find in page' to find your objects
+
+<br/></li><li id='SQGACASYSwD' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/aYyxq6pwbRgR42Pu7bCF9Q?a=rN0OSSag7PWbKwWjGRkZ8hsETwTwb5KNWrVA5L7FuHYa' id='SQGACASYSwD' alt='' width='800' height='227'></img></span></li><li id='SQGACAe0tRX' class=''>Find the section (like Fields &amp; Relationships) through the hyperlinks at the top.
+
+<br/></li><li id='SQGACARHXnW' class=''>If you get errors on your 'Lemonade Stand' app or a page cannot be viewed reload the browser page first.
+
+<br/></li><li id='SQGACAhzkpy' class=''>When you're at the final Trailhead step for our Project called '<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-reports-and-dashboards">Create Reports and Dashboards</a>' (<a href="https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-reports-and-dashboardsuse">https://trailhead.salesforce.com/project/lemonade-stand-workshop/create-reports-and-dashboardsuse</a>)  the Quick Find in Setup again to find 'Report Types'
+
+<br/></li><li id='SQGACA1tik9' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/DszUoOtbCMdPXESiGdbGtA?a=dVdglYECjVjRTNYAp4sr2CXW8pfrqAwTvly74giHYnEa' id='SQGACA1tik9' alt='' width='800' height='351'></img></span></li><li id='SQGACAdNavc' class=''>Did you find your Lemonade Stand App on you mobile or in your mobile browser? No? That's correct, only the individual objects are available in Salesforce1 as well as your Reports and Dashboards.
+
+<br/></li><li id='SQGACAdjEvg' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/4Jb1N4KuhP1eMrfDaDUgqw?a=qbHW3uiFEnDEpc6BwU9kcsrjaEZXXuHSKO9ohEXtkVwa' id='SQGACAdjEvg' alt='' width='385' height='678'></img></span></li><li id='SQGACAaKkyZ' class=''>When all went according to plan you should have a brand new badge on your Trailhead account!
+
+<br/></li><li id='SQGACAX5W6C' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/Rqg_1ZBMnhYvelZzc0ZMSA?a=WjiCj4JriEEMNLTg7Uk0ORqs9WdX1kaF6kMk8kcFGa4a' id='SQGACAX5W6C' alt='' width='566' height='625'></img></span></li></ul></div><h3 id='SQGACAjAhdh'>Creating mobile content</h3>
+
+We've completed our Project and built the Lemonade Stand App! But although the individual objects are available through Salesforce1 we also want to customise content for staff to see the number of back orders.<br/>
+
+<br/>
+
+We create our mobile apps in the 'Lightning App Builder', it helps you build custom pages for Lightning Experience and Salesforce1 quickly with point-and-click tools. You can learn more about the '<a href="https://trailhead.salesforce.com/module/lightning_app_builder">Lightning App Builder</a>' (<a href="https://trailhead.salesforce.com/module/lightning_app_builderin">https://trailhead.salesforce.com/module/lightning_app_builderin</a>) another Module on Trailhead.<br/>
+
+<div data-section-style='7'><ul id='SQGACAsXdKW'><li id='SQGACApp5J1' class='' value='1'>Go to the Reports tab and click <b>Pending Orders by Queue</b>
+
+<br/></li><li id='SQGACAOctTh' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/HVUETvf7kWSc0rmnVlJ5VA?a=zsmtNvhlixOBdnvDQ9eUStI8co7TjbducPDdaRW3x6ka' id='SQGACAOctTh' alt='' width='800' height='260'></img></span></li><li id='SQGACAo0rl9' class=''>Click on the small chart icon to enable the chart
+
+<br/></li><li id='SQGACAdW0VH' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/eBu2C3JSQnl2biuCIbTt_g?a=LcEQ3drUAVWsipNJZ4DKLxjPWcM75skjWHkKOZkVw3sa' id='SQGACAdW0VH' alt='' width='800' height='546'></img></span></li><li id='SQGACAU8kD6' class=''>Select the small wheel on the chart and change the chart X-axis to Sum of Quantity. Click the wheel again to see the change
+
+<br/></li><li id='SQGACA0xiuY' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/hiQLLu6AY17_QOmoycCbCA?a=rLo26vkGU6l4qaDGE9UqPpDYqZZCrRdsPzbkilECjS8a' id='SQGACA0xiuY' alt='' width='800' height='642'></img></span></li><li id='SQGACAcuaPf' class=''>Use the drop down box on the far right to click <b>Save</b>
+
+<br/></li><li id='SQGACAXIx3h' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/nJBqw19d3WFlYciXRQvEbg?a=0k9UaGL0felO0YgUTzLlU3EBXYXuPiObZ5UBUBYoOrga' id='SQGACAXIx3h' alt='' width='800' height='288'></img></span></li><li id='SQGACArBUuf' class=''>Navigate to Setup Home and search for 'Lightning App Builder' in the Quick Find box
+
+<br/></li><li id='SQGACAfQJ7B' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/8Ob2xm5HKbYKwbbk2eUtgg?a=ngQXupcQoBa8aU9s57IeaE0mYqjYg1QdaiTqPk1qEu4a' id='SQGACAfQJ7B' alt='' width='800' height='313'></img></span></li><li id='SQGACApfRcx' class=''>Click <b>Lightning App Builder </b>and click<b> New</b>
+
+<br/></li><li id='SQGACA8tgAe' class=''>Select 'App Page' and click <b>Next</b>
+
+<br/></li><li id='SQGACAL6IWl' class=''>Select 'One Column' (scroll down) and click <b>Next</b>
+
+<br/></li><li id='SQGACAukKJs' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/rLsGc9No_Xl0GVJI-cHm0w?a=EJIQI3O2bNPca55LhaxJQ5n1pxhiXSMzy6q5aCrN20Ua' id='SQGACAukKJs' alt='' width='800' height='495'></img></span></li><li id='SQGACAwcXl6' class=''>Give your page a name and click <b>Finish</b>
+
+<br/></li><li id='SQGACAJvqQs' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/5bQOv4emQedMXxMtLCAgqA?a=V5yRRwlKOmZNujEZZkOYDzvekW7xtRhmvLpvNrlXkEEa' id='SQGACAJvqQs' alt='' width='800' height='491'></img></span></li><li id='SQGACAtv2AD' class=''>Drag the 'Report Chart' component onto the page, it will automatically pick the chart from our report
+
+<br/></li><li id='SQGACAF1iOT' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/FcAvYNMg6GK8xdMFUHCjag?a=tbHnhgaaeFa3V14Y5FkUqUnV1GD6qJaKt0f6r3wpveka' id='SQGACAF1iOT' alt='' width='800' height='462'></img></span></li><li id='SQGACAbUxmY' class=''>Also drag the 'Recent Items' component on the page below the chart. Select Drink Order as object to display, remove Account and click '<b>OK</b>'. Feel free to add a label before clicking 'Save'
+
+<br/></li><li id='SQGACA28Luc' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/y5gG-1RiT3WtfwA3z_X4Ww?a=eMVSUnxb1lm9AkaEiDbr03pYFBaPcAH29t10ZRZw8sga' id='SQGACA28Luc' alt='' width='800' height='558'></img></span></li><li id='SQGACAyxoBO' class=''>Click <b>Activate </b>and on the '<b>PAGE SETTINGS</b>' tab leave the defaults. Click '<b>LIGHTNING EXPERIENCE</b>' and add our page to the 'Lemonade Stand' App
+
+<br/></li><li id='SQGACAlqDVV' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/V54pP0vM-JhvS4MQRurgKg?a=rbae1AExUJE1J5Y8LrRdgNiWxNue6AykLfMKIaSt8gca' id='SQGACAlqDVV' alt='' width='800' height='570'></img></span></li><li id='SQGACAKBSsV' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/lK7jFpbtwEXqaGGechCRPw?a=aPD1MDHV671QrBz4Z3jGQAB4zdnYCSYBFs0iO6oSVNca' id='SQGACAKBSsV' alt='' width='800' height='443'></img></span></li><li id='SQGACA7hqRn' class=''>Click '<b>SALESFORCE1</b>' and click <b>Add page to app</b>. Drag your page to the top and click<b> Save</b>
+
+<br/></li><li id='SQGACABfPDv' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/VnBiffmGYmxQCwbC74Yzzw?a=kVOTTXuxGfatTTlNM4RCaFiwvYX67vkvR8HLIAsRr8wa' id='SQGACABfPDv' alt='' width='800' height='570'></img></span></li><li id='SQGACAdpeIl' class=''>Click <b>Back</b> to go back to Setup
+
+<br/></li><li id='SQGACAQQrE9' class=''>In Googler Chrome you can use the Developer Tools render a mobile view. Reload the page to switch to Salesforce1!
+
+<br/></li><li id='SQGACAHaFvl' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/XP7iZ2mIRTm7z4Pi7ahCpA?a=ST2SGXZ0kIpaVaY28Z0MROCTa1fWICRQnPylhig8ia8a' id='SQGACAHaFvl' alt='' width='686' height='740'></img></span></li><li id='SQGACAMsZzG' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/I9xQPzoHxk7o9A5iWXyScQ?a=TSa1vW2oQc7NGkeDWW783aHUxMEBUD3mBZWRavoLr9ca' id='SQGACAMsZzG' alt='' width='408' height='745'></img></span></li><li id='SQGACABO6sg' class=''>You can off course also use the Salesfore1 app to view the content
+
+<br/></li></ul></div><h3 id='SQGACAPG2FC'>enhancing (optional)</h3>
+
+There's a number of additional tools available to enhance our App. You can do this through following other Trails and earn more badges using the same Developer Org. This section offers some optional content for you to follow if time permits.<br/>
+
+<br/>
+
+First we'll have a look at the Schema Builder, Schema Builder is a Graphical User Interface to easily see objects and relationships, and create objects and fields quickly.<br/>
+
+<div data-section-style='7'><ul id='SQGACAC8BzP'><li id='SQGACARBnYe' class='' value='1'>Navigate to Setup Home and search for 'Schema Builder' in the Quick Find box
+
+<br/></li><li id='SQGACAhvbMl' class=''>Click <b>Schema Builder</b>
+
+<br/></li><li id='SQGACA90OyB' class=''>Select <b>All Objects</b> in the drop down box and click <b>Clear All</b>. Select <b>Custom Objects</b> in the drop down box and click <b>Select All</b>
+
+<br/></li><li id='SQGACAbY5i1' class=''>Select <b>Standard Objects</b> and select <b>Contact</b>.  If you've built the Lemonade Stand objects your objects should have the below structure
+
+<br/></li><li id='SQGACANeVnS' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/SXHORTsh6J-HYaBqC4FVGg?a=THVyxJ3aZijmOLMsLQoDOheBgk7G7xSjaWzYjgcbtEAa' id='SQGACANeVnS' alt='' width='800' height='514'></img></span></li><li id='SQGACAJ5LZr' class=''>Click on the <b>Elements</b> tab
+
+<br/></li><li id='SQGACAMQ9vr' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/Nkp6RlHzKQ-0k7uoV_2uuA?a=N4KtZWx3GIgpX9cMgAVda769mLZIVk0fvjBynDG4tAwa' id='SQGACAMQ9vr' alt='' width='670' height='637'></img></span></li><li id='SQGACApluZu' class=''>You can now drag and drop a new Object on the canvas, edit existing objects, add or edit  fields easily. Feel free to try but don't save. <b>Close</b> the Schema Builder
+
+<br/></li></ul></div>As collaboration is very import in many business, with Chatter we can make our App enabled for collaboration. Chatter is a Salesforce collaboration application that connects, engages, and motivates users to work efficiently across the organization regardless of role or location. For more details on Chatter you can later follow the '<a href="https://trailhead.salesforce.com/module/chatter">Chatter Basics</a>' (<a href="https://trailhead.salesforce.com/module/chattermodule">https://trailhead.salesforce.com/module/chattermodule</a>)  from Trailhead.<br/>
+
+<br/>
+
+In the Lemonade Stand App customers might have some specific wishes with their order, with a Chatter post a waitress can add a comment to an Order.<br/>
+
+<div data-section-style='7'><ul id='SQGACAWMUUA'><li id='SQGACARgoPW' class='' value='1'>Navigate to Setup Home and search for 'Feed Tracking' in the Quick Find box
+
+<br/></li><li id='SQGACAfxe4N' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/RGZ6x8F9U5wDglVaMbkA_g?a=grcag04SIwCLXH9aU9Wv1cXIBy7FStgOig3ydiYpa38a' id='SQGACAfxe4N' alt='' width='800' height='326'></img></span></li><li id='SQGACAa9yjD' class=''>Select 'Drink Order' and check 'Enable Feed Tracking' and 'All Related Objects'. Click <b>Save</b>
+
+<br/></li><li id='SQGACAOBnVO' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/j_DlsdEckvme-NEQlWAUVg?a=5oJSpaCdKouLib4LnTnoTxwF67XCi6GSyFUav1p5hJ0a' id='SQGACAOBnVO' alt='' width='800' height='426'></img></span></li><li id='SQGACAM02Dn' class=''>Create a new Drink Order and notice the Chatter section has appeared
+
+<br/></li><li id='SQGACAgjOkT' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/LDAUif1zJT369u67-9VXDQ?a=avmKfgdsEwpaHl8TBYEoJ5oQg0q7BCC0PO2varsjz1Qa' id='SQGACAgjOkT' alt='' width='800' height='332'></img></span></li><li id='SQGACA6ZtVZ' class=''>Create a post and <b>Share</b>
+
+<br/></li><li id='SQGACAsj3Ll' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/ebf_KlrV_W9VCtgMBaz4Pg?a=AAKbq28r6ilGimogNlZzbYV77a07AruaxJafVP2oS6wa' id='SQGACAsj3Ll' alt='' width='800' height='408'></img></span></li><li id='SQGACAMmKY0' class=''>Off course you could have added a field for notes but select the Chatter tab
+
+<br/></li><li id='SQGACAzSTrz' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/9jvOIStj5B-03yJG1yaqNQ?a=naovvuaZQzVyZBlLDarQFHFWJRMj6ljXjZIUw8KhZkoa' id='SQGACAzSTrz' alt='' width='800' height='374'></img></span></li><li id='SQGACAOhiAI' class=''>People can follow the Drink Orders chatter feed and be alerted for special orders or comment directly on the post ('Our business is doing so well, we're out of Strawberry flavoured lemonade!')
+
+<br/></li><li id='SQGACAJ5PHR' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/zg5oMSC66Y-WmLgvTViU4A?a=ZUlEgpQgB5jKae1MoYCIzsADrlSC4yyxNF3Z0bmg7Iga' id='SQGACAJ5PHR' alt='' width='800' height='393'></img></span></li><li id='SQGACAXskNa' class=''>With the @mention it's possible to direct the post at a specific Group if it exists
+
+<br/></li></ul></div>We also want to post to chatter when an order has been completed. We don't want to manually post each time and order is marked complete so let's make our App better with some automation. For automation we use the Process Builder, for more details on process automation follow the specific module on <a href="https://trailhead.salesforce.com/en/module/business_process_automation">Process Automation</a> (<a href="https://trailhead.salesforce.com/en/module/business_process_automationfrom">https://trailhead.salesforce.com/en/module/business_process_automationfrom</a>) Trailhead<i>.</i><br/>
+
+<div data-section-style='7'><ul id='SQGACA3iEyR'><li id='SQGACAk3mOt' class='' value='1'>Navigate to Setup Home and search for 'Process Builder' in the Quick Find box
+
+<br/></li><li id='SQGACArUkUC' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/74S-aCWOzohQQNLbz_JuQg?a=0ATuLHmH7wso2gNQ2nyleA4PRAi6YIZSJs5w4aVEWgQa' id='SQGACArUkUC' alt='' width='800' height='327'></img></span></li><li id='SQGACA24km8' class=''>Clicking <b>Process Builder </b>will open new screen. Select <b>New</b> to start a new process
+
+<br/></li><li id='SQGACAzfCck' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/ATpOfxu1zi-2cHVquKtJ5A?a=45VI5rk4v4JGrDTyld0NHJfIxl3OaKz666PBi59lxqwa' id='SQGACAzfCck' alt='' width='800' height='162'></img></span></li><li id='SQGACAOQ2lf' class=''>Give the process a name and select The process starts when 'A record changes'. Click <b>Save</b>
+
+<br/></li><li id='SQGACAsANpL' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/n8szlCwexd-93Fl0jG3zJQ?a=CT33rnT9NHnrIaHbTZEAapznUWZo3a12vZdexmqGnoIa' id='SQGACAsANpL' alt='' width='751' height='496'></img></span></li><li id='SQGACA0zlJH' class=''>Click <b>+ Add Object</b>, select Drink Order and 'when a record is created or edited'. Click <b>Save</b>
+
+<br/></li><li id='SQGACAVzWsW' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/TOfbLboNKS8ShaICpRmLgw?a=E5Heqh6exOEjveDEIahUsVnpDwnMthxaCHAH8Z6s05wa' id='SQGACAVzWsW' alt='' width='800' height='400'></img></span></li><li id='SQGACAM4mtJ' class=''>Click <b>+ Add Criteria</b> and provide a name
+
+<br/></li><li id='SQGACAWz0u7' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/XMe78699VYjnDFx_K3FfSQ?a=Z4TFKHsGqt4vBu7N6MXksljcn0vTasqvu2aNXBcn2Aga' id='SQGACAWz0u7' alt='' width='800' height='376'></img></span></li><li id='SQGACAOv41T' class=''>Select the field Drink_Order__c → Status and click <b>Choose</b>
+
+<br/></li><li id='SQGACAssO7l' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/Vc-s0Op9pq0Cd61PrSY_EA?a=VEflIphEpvl1rRfuyw86sWlgBIe5NX3xr68oBb66hyka' id='SQGACAssO7l' alt='' width='568' height='491'></img></span></li><li id='SQGACAN20tA' class=''>From the Value field pick the value Completed and click <b>Save</b>. So we only do the action when the status is Complete.
+
+<br/></li><li id='SQGACArO2HC' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/KTPN4oUvDdScMzqRSa0UBg?a=Xw7qVnPAqfDWgu5UhMDo8RgARlfyjxueOYKVa1PGm58a' id='SQGACArO2HC' alt='' width='683' height='419'></img></span></li><li id='SQGACAXuE7K' class=''>Click <b>+ Add Action</b>, select the 'Post to Chatter' Action Type, provide an Action Name, select 'Post to 'This Record' and built the message with Merge Fields
+
+<br/></li><li id='SQGACAvKDlt' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/4NEqnhSdVcu0OoVa0y2VEQ?a=EhoaT6oo1axqebufC8TAGeKyejMKMfamIWAZcazRCOka' id='SQGACAvKDlt' alt='' width='800' height='566'></img></span></li><li id='SQGACAnmc54' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/_nm3f1EKOs8K20IOX9ZqTw?a=taufr1LUK4xXdL2oo1SNxl4WqHjf5KeyzsWsgIILcrka' id='SQGACAnmc54' alt='' width='563' height='505'></img></span></li><li id='SQGACAvZ7sD' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/x9rsE_3RUZX9jE6ByLMa0Q?a=E7ZCr7FMDHhRdyAzPEtZJzS4VtZKO0vDJ2Eh8ulrRCUa' id='SQGACAvZ7sD' alt='' width='684' height='228'></img></span></li><li id='SQGACAUgQWA' class=''>Click <b>Save</b> and click <b>Activate</b>. Confirm and test by marking a Drink Order as complete
+
+<br/></li><li id='SQGACAXaOU1' class=''>If the action is not working properly go back to Process Builder. Select the process and click <b>Clone</b>. Once a process is active you can only change a process by creating a new version
+
+<br/></li><li id='SQGACA2JAgz' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/mK_0vsRhLuFancRFJ_nNbg?a=VI8tE4O8X9MraMmpytLLOUrTXcw5HrLuFtSgczE3ZDUa' id='SQGACA2JAgz' alt='' width='800' height='604'></img></span></li><li id='SQGACAYTV1V' class=''>Change the process and click <b>Save,</b> <b>Activate</b> and <b>Confirm</b> again. A new version will be now active
+
+<br/></li><li id='SQGACAgGmm6' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/0LXpyZQcf3SQnsmSzy-gmg?a=MZaL1wcakBSFDeoVJHaBGp2NhykbRXZq8PDosbsVIkQa' id='SQGACAgGmm6' alt='' width='800' height='430'></img></span></li><li id='SQGACAwnfzg' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/QnE0aIZeqw6ZusOMfZvGGw?a=ewk3nQ54F4a1SOafSXcrAafakgPus1PQ3NLfaab971sa' id='SQGACAwnfzg' alt='' width='800' height='572'></img></span></li></ul></div>Besides the option to quickly create and change objects you can also quickly change pages in the Lightning interface. Pages in  Lightning are customised and created in the 'Lightning App builder'.<br/>
+
+<br/>
+
+In the Lemonade Stand App we have some content on the Drink Order page which is not relevant. Like the 'Related' and the 'Activities' tab. Let's change the page.<br/>
+
+<div data-section-style='7'><ul id='SQGACA6hITV'><li id='SQGACAHEOTm' class='' value='1'>Open a Drink Order from the Drink Orders tab. Click on '<b>RELATED</b>'
+
+<br/></li><li id='SQGACALCMXx' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/q3s2qGl9wZ2jlK5S2TU97g?a=6SSaOxavkbkuXcgUdGKmFp8It1hcSyWezjg0dpkkBmEa' id='SQGACALCMXx' alt='' width='800' height='444'></img></span></li><li id='SQGACAhWOwk' class=''>Now click on the wheel in the top right and select '<b>Edit Page</b>'
+
+<br/></li><li id='SQGACAhd36G' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/PiXHz9DGh7GWNz_bEbguJg?a=gaFeiN9Bwv1QG4BNXvWuGLhPaGRtS3gbOTNOGVEhLNwa' id='SQGACAhd36G' alt='' width='800' height='259'></img></span></li><li id='SQGACA2cJVr' class=''>In the Lightning App Builder select the Tabs object on the left of the page. Move 'Details' up and change 'Related' to 'Chatter'
+
+<br/></li><li id='SQGACA4b0FR' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/wZNJ_A6klurN4IRSRkS8aQ?a=6CXBE3TD4qc7ksZw9TZG4dNpaaUJ0aNrFpDHYdbhfJAa' id='SQGACA4b0FR' alt='' width='800' height='340'></img></span></li><li id='SQGACA2UcX5' class=''>Click on the 'CHATTER' tab in the first Tabs component and drag the 'Chatter Feed' component into the tab. feel free to also add the Chatter Publisher above the Chatter Feed component
+
+<br/></li><li id='SQGACALmjYu' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/2PZ5_4jKIIL95wKgvRKT6A?a=cuVZ2wEcEUzK4NvUaMMeNairHqE8kLXtfbZVatOE4Tga' id='SQGACALmjYu' alt='' width='800' height='392'></img></span></li><li id='SQGACAsP2wl' class=''>Remove the other Tabs component through selecting the cross in the upper right corner of the Tabs component
+
+<br/></li><li id='SQGACAs8pX8' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/3b2ggOQYPw7oxtH6506Srg?a=kFafICeZwX2EcdtjchAdzP7bTalfCQEFMIWKH7eQCKMa' id='SQGACAs8pX8' alt='' width='800' height='305'></img></span></li><li id='SQGACAoTw27' class=''>Feel free to try some of the other components on the free space available
+
+<br/></li><li id='SQGACAIMfel' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/n9jY4pW2TrPKURhA4Obt0w?a=riatjXaOUuuPW2ashYvisHET8H30YX06oaaajNuCpaIa' id='SQGACAIMfel' alt='' width='800' height='604'></img></span></li><li id='SQGACAnWhIr' class=''>Finally click <b>Save, Activate, Next </b>and<b> Save</b>. Click<b> Back </b>to go to the new Drink Order details page
+
+<br/></li><li id='SQGACAgRNoJ' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/t4riFVMvjzN3IJfZdQzwGg?a=lSgWTae91T5Jvz2zUQwiBwCzMp87L12yaaOQNAYpH78a' id='SQGACAgRNoJ' alt='' width='800' height='640'></img></span></li></ul></div><h3 id='SQGACAO4rsY'>Communities</h3>
+
+Until now all the work we did was for setting up functionality for Salesforce users, normally employees. We might also want to expose some of the data to our customers or partners and maybe also provide some self-service. This is where <a href="https://trailhead.salesforce.com/module/community_rollout_impl">Communities</a> (<a href="https://trailhead.salesforce.com/module/community_rollout_implcan">https://trailhead.salesforce.com/module/community_rollout_implcan</a>) help.<br/>
+
+<div data-section-style='7'><ul id='SQGACAsaxna'><li id='SQGACAQGK4c' class='' value='1'>First enable Communities in your environment. Navigate to Setup Home and search for 'Communities' in the Quick Find box. Click <b>Communities Settings</b>
+
+<br/></li><li id='SQGACArY3qy' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/Dhu2Li81TmBGjweR8JFhAA?a=jKYSwgseEfrcGa249FNm4KdLA40x6NQBer9KAt7Y9Dwa' id='SQGACArY3qy' alt='' width='729' height='330'></img></span></li><li id='SQGACAfWUBv' class=''>Check 'Enable communities'
+
+<br/></li><li id='SQGACAcqO6f' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/xU5VJE_CBFECdcTuo5c9tQ?a=wug0MvmvcXtatBNY0eGQX2wJPSpUw2yJsx6Nfbha1lca' id='SQGACAcqO6f' alt='' width='800' height='326'></img></span></li><li id='SQGACAP7qxI' class=''>Pick a domain name and click <b>Check Availability</b>. If available click<b> Save</b>
+
+<br/></li><li id='SQGACAYZDf1' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/VWo_DfDQ5Cd0pBsP4m-Whw?a=rGDBhPDPWKhNoOiQuDiwRhb4FHspBa7Vrkx2d11J6oYa' id='SQGACAYZDf1' alt='' width='800' height='591'></img></span></li><li id='SQGACAiqDPp' class=''>If pop-ups are not blocked you'll see a new window or tab. Click <b>New Community</b>
+
+<br/></li><li id='SQGACA5MUFr' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/T4W3bK6D6cjlfqwl5yUARQ?a=8mxnCR4ICyGJZGWi269th7NwovsSHVEloGPdaSWMATEa' id='SQGACA5MUFr' alt='' width='800' height='122'></img></span></li><li id='SQGACAxrZ9i' class=''>Templates are shown, pick 'Customer Service (Napili)' and click <b>Get Started</b>
+
+<br/></li><li id='SQGACAhb3Sh' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/gnus8OnsHxH77hebOLobGw?a=syPcBn3KRD3ABITb3EbL2BF64o7r7Mq12xNry1S55S8a' id='SQGACAhb3Sh' alt='' width='800' height='588'></img></span></li><li id='SQGACAWFArx' class=''>Enter Lemonade for the name and the URL. Click <b>Create</b>
+
+<br/></li><li id='SQGACAfnx92' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/1hNHnsme-Tgd_XYPa4qxuQ?a=y5a7xUaeokwrbIKLwf6zVBGJh7t76oqzrhisFlXHBVEa' id='SQGACAfnx92' alt='' width='800' height='392'></img></span></li><li id='SQGACAcgzEB' class=''>Click <b>Build &amp; Customize </b>to start the Community Builder. You can change the color scheme and add images for logo and header if you like
+
+<br/></li><li id='SQGACAX1SaO' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/GcLa2NsHX1vCtVwYlz5u2Q?a=pPA51F7hXV7Xo3b27lpM3AWrYyN4MBWqVGWg544zuXAa' id='SQGACAX1SaO' alt='' width='307' height='774'></img></span></li><li id='SQGACAf1X5x' class=''>Select the 'Page Editor' and click on 'TOPICS' to edit the NAVIGATION MENU. Click <b>Edit Navigation Menu</b> in the pop-up
+
+<br/></li><li id='SQGACA4FIaQ' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/sIGiuU8zVDpxM-kX3WbP8g?a=LD8CyvuXkcIa16ZiOP6YiBaMui6JTNogBsehfxfLvKsa' id='SQGACA4FIaQ' alt='' width='499' height='266'></img></span></li><li id='SQGACA8wxNy' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/RO0tFq128MbtuMhA4Kudng?a=S0RbZr3xPkSOtUuVgAy4BKOFYIokDxRZOobWDVm6Vi8a' id='SQGACA8wxNy' alt='' width='800' height='182'></img></span></li><li id='SQGACA7vgfF' class=''>Click <b>+ Add Menu Item</b> and fill-out the details below. Make sure you select 'Salesforce Object' as Type and our object 'Drink Order' as Object Type. Click <b>Save Changes</b>
+
+<br/></li><li id='SQGACAlgw1r' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/ppX5b80VIH4S4W7OP8Ge7Q?a=8wHf9SJNaFAbsucWJZrA7a4ck45BSz1kS6ogHRKI620a' id='SQGACAlgw1r' alt='' width='648' height='552'></img></span></li><li id='SQGACAhWStn' class=''>Click <b>Publish</b> on the top right and <b>Publish</b> again. Now click <b>Preview</b> in the top right.
+
+<br/></li><li id='SQGACAO0Kq9' class=''><span data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/aCsrPOTxuz7VXjni1kO--w?a=2apWyY5YC7DXzY1fZ3MULXAHFlmYbhwfpoi3qxpwIhMa' id='SQGACAO0Kq9' alt='' width='800' height='176'></img></span></li><li id='SQGACAgS1zq' class=''>Select Drink Orders from the menu to see your drink orders. With clicking <b>New</b> drink orders can even be created.
+
+<br/></li></ul></div>We now have basically created a 'web presence'  for our Salesforce data. Off course with communities it's important to determine who will get access to what data and what are they allowed to do. Our Community access still requires a Salesforce login. Like with Salesforce itself with Communities you can also use other login providers or even have users self-register through a social login (Facebook, Google, etc). <br/>
+
+<h3 id='SQGACAbK1UK'>Finally</h3>
+
+Now the small Lemonade stand business becomes part of a larger organisation. This organisation is not working with Salesforce yet but does administer orders. To have a complete account insight it's required for Salesforce to look up those orders.<br/>
+
+<br/>
+
+With Salesforce Connect you can create a data proxy to pull OData or other data sources into Salesforce on demand. No data is copied to the Salesforce database. This means in our example for orders from the external source the external system remains the primary source for the non-Lemonade orders.<br/>
+
+<br/>
+
+<div data-section-style='11' style='max-width:100%'><img src='https://quip.com/blob/SQGAAA9v7bN/-r-n8TM5ZMKO84xZ8ckHgw?a=NZ7c2AUEAj3tHNrQkzd1d4yklakSagBhMm4dYv9WdX8a' id='SQGACAviiwC' alt='' width='800' height='441'></img></div><br/>
+
+Another Trailhead module, <a href="https://trailhead.salesforce.com/project/quickstart-lightning-connect">Quick Start: Salesforce Connect</a> (<a href="https://trailhead.salesforce.com/project/quickstart-lightning-connect">https://trailhead.salesforce.com/project/quickstart-lightning-connect</a>), quickly shows how to connect to an external datasource. If time permits you can complete the trail an get another badge.<br/>
+
+</body></html>
